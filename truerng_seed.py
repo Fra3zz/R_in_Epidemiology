@@ -1,7 +1,9 @@
 import serial
 from serial.tools import list_ports
+import os
 
-DEBUG = False
+# Debug env setting
+DEBUG = bool(int(os.getenv("DEBUG", 0)))
 
 def get_seed_from_truerng():
     rng_com_port = None
@@ -35,7 +37,10 @@ def get_seed_from_truerng():
 
     try:
         # Read 8 bytes from TrueRNG
-        random_bytes = ser.read(8)
+        random_bytes = ser.read(1500)
+        
+        if DEBUG:
+            print(random_bytes.hex())
         
         # Convert bytes to an integer seed
         seed = int.from_bytes(random_bytes, byteorder='big')
