@@ -5,6 +5,9 @@ install.packages("openxlsx")
 library(reticulate)
 library(openxlsx)
 
+# Create necessary directories
+dir.create("./infection/data", recursive = TRUE, showWarnings = FALSE)
+
 # Source the Python script
 source_python("truerng_seed.py")
 
@@ -41,7 +44,7 @@ disease_data <- data.frame(
 head(disease_data)
 
 # Write the data to a CSV file with headers
-write.csv(disease_data, file = "outbreak.csv", row.names = FALSE)
+write.csv(disease_data, file = "./infection/data/outbreak.csv", row.names = FALSE)
 
 # Write the data to an Excel file
-write.xlsx(disease_data, file = "outbreak.xlsx", rowNames = FALSE)
+write.xlsx(disease_data, file = "./infection/data/outbreak.xlsx", rowNames = FALSE)
